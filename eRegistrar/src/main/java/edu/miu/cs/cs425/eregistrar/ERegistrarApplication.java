@@ -2,6 +2,7 @@ package edu.miu.cs.cs425.eregistrar;
 
 import edu.miu.cs.cs425.eregistrar.Service.StudentService;
 import edu.miu.cs.cs425.eregistrar.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,11 +15,8 @@ public class ERegistrarApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(ERegistrarApplication.class, args);
     }
-    StudentService studentService;
-
-    public ERegistrarApplication(StudentService studentService) {
-        this.studentService = studentService;
-    }
+    @Autowired
+    private StudentService studentService;
 
     @Override
     public void run(String... args) throws Exception {

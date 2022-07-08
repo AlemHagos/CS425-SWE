@@ -1,6 +1,5 @@
 package edu.miu.cs.cs425.eregistrar.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -2,6 +2,7 @@ package edu.miu.cs.cs425.eregistrar.controller;
 
 import edu.miu.cs.cs425.eregistrar.Service.StudentService;
 import edu.miu.cs.cs425.eregistrar.model.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,16 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 public class StudentController {
+    @Autowired
      private StudentService studentService;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
       @GetMapping(value = {"/list","/eregistrar/list"})
     public ModelAndView listStudents(){
         var modelandview= new ModelAndView();
@@ -33,7 +31,8 @@ public class StudentController {
     }
     @GetMapping(value = {"/eregistrar/new"})
     public String displayNewStudentForm(Model model) {
-        model.addAttribute("student",new Student(null,null," ",null,null
+        model.addAttribute("student",new Student(null,
+                null," ",null,null
                 ,0.0, null,null));
         return "Secured/new";
     }
@@ -44,7 +43,7 @@ public class StudentController {
         if(bindingResult.hasErrors()) {
             model.addAttribute("student", student);
             model.addAttribute("errors", bindingResult.getAllErrors());
-            System.out.println("am running");
+            System.out.println("I am running");
             return "Secured/new";
         }
         studentService.addStudent(student);
@@ -61,7 +60,7 @@ public class StudentController {
         return "redirect:/eregistrar/list";
     }
 
-    @PostMapping(value = {"eregistrar/update"})
+    @GetMapping(value = {"eregistrar/update"})
     public String updateStudent(@Valid @ModelAttribute("student") Student student,
                                   BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
